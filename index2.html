@@ -24,7 +24,8 @@
     <script>
       var socket = io.connect('http://192.168.10.10:9900/');
 
-      //cek browser name
+      ////////////////////////// Script to detect User's Browser //////////////////////////
+      // check browser name
       var nVer = navigator.appVersion;
       var nAgt = navigator.userAgent;
       var browserName  = navigator.appName;
@@ -87,18 +88,12 @@
        fullVersion  = ''+parseFloat(navigator.appVersion); 
        majorVersion = parseInt(navigator.appVersion,10);
       }
+      ////////////////////////// END of Script to detect User's Browser //////////////////////////
 
-      /*document.write(''
-       +'Browser name  = '+browserName+'<br>'
-       +'Full version  = '+fullVersion+'<br>'
-       +'Major version = '+majorVersion+'<br>'
-       +'navigator.appName = '+navigator.appName+'<br>'
-       +'navigator.userAgent = '+navigator.userAgent+'<br>'
-      )*/
 
-      //print browser name
+
+      // Get the User's browser
       var user_browser_user_agent = browserName;
-
 
       $('form').submit(function(){
         socket.emit('chat message', $('#m').val());
