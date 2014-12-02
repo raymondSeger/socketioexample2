@@ -36,7 +36,7 @@ io.on('connection', function(socket){
 
   })
 
-  // Get data from CLIENT
+  // User disconnected
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
