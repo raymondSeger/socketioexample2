@@ -14,7 +14,7 @@ var io = require('socket.io').listen(server);
 var users_connected_user_agents = [];
 
 // When there is a user that is connected
-io.on('connection', function(socket){
+io.on('connection', function(socket){	
 
 	// Get data from CLIENT and send back data to ONLY that client
 	// And then SEND data to ONLY one CLIENT
@@ -45,14 +45,15 @@ io.on('connection', function(socket){
 	socket.on('private message FROM CLIENT', function (destination, msg, delays) {
 		console.log('UserID ' + socket.id + ' wanted to send message to ' + destination + ' , the content is ' + msg + ' , delay is ' + delays);
 		
-
 		// SEND data to ONLY one CLIENT
 		if(delays == 0 || delays == null) {
-			io.to(destination).emit('private message FROM SERVER', destination, msg, delays);
+			setTimeout(function(){
+				io.to(destination).emit('private message FROM SERVER', destination, msg, 0);
+			}, 0);
 		} else {
 			setTimeout(function(){
 				io.to(destination).emit('private message FROM SERVER', destination, msg, delays);
-			}, 3000);
+			}, delays * 1000);
 		}
 
 	});
