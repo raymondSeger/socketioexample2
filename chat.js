@@ -21,16 +21,19 @@ io.on('connection', function(socket){
 
   console.log('user connected!');
 
+  var socket_id = socket.id;
+
   // Send the user the JSON object
   io.emit('giveData', billyJSONObject);
 
   // Get data from CLIENT
   socket.on('giveUserComputerData', function(user_browser_user_agent){
-    console.log('I am: ' + user_browser_user_agent);
+    console.log('The user with ID of : ' + socket_id + ' is using ' + user_browser_user_agent);
 
-    
-    // Send data to CLIENT
-    io.emit('giveUserComputerData', user_browser_user_agent);
+    // Send data to ONE CLIENT
+     if (io.sockets.connected[socket_id]) {
+      io.sockets.connected[socket_id].emit('giveUserComputerData', 'You are using ' + user_browser_user_agent);
+    }
 
   });
 
@@ -42,7 +45,7 @@ io.on('connection', function(socket){
   // Get data from CLIENT
   socket.on('chat message', function(msg){
     console.log('message: ' + msg);
-    // Send data to CLIENT
+    // Send data to ALL CLIENT
     io.emit('chat message', msg);
   });
 
