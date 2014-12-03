@@ -98,7 +98,6 @@
       $('form').submit(function(){
         socket.emit('chat message', $('#m').val());
         $('#m').val('');
-        
         return false;
       });
 
@@ -109,23 +108,10 @@
       socket.on('chat message', function(msg){
         $('#messages').append($('<li>').text(msg));
       });
-
-      // Listen to server
-      socket.on('testMessage', function(msg){
-        alert(msg);
-      });
-
-      // Listen to server
-      socket.on('giveData', function(jsonObject){
-        console.log(jsonObject.name);
-      });
       
-      /*socket.on('giveUserComputerData', function(user_browser_user_agent){
-        $('#messages').append($('<li>').text('You are ' + user_browser_user_agent));
-      });*/
-
-      socket.on('msgs', function(msg){
-        $('#messages').append($('<li>').text(msg));
+      // Listen to server
+      socket.on('giveUserHisBrowserAgent', function(user_browser_user_agent){
+        $('#messages').append($('<li>').text(user_browser_user_agent));
       });
 
     </script>

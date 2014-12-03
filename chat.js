@@ -18,7 +18,7 @@ io.on('connection', function(socket){
   // Get data from CLIENT and send back data to ONLY that client
   socket.on('giveUserComputerData', function(user_browser_user_agent){
     console.log(user_browser_user_agent + ' is here');
-    io.to(socket.id).emit('msgs', 'You are ' + user_browser_user_agent);
+    io.to(socket.id).emit('giveUserHisBrowserAgent', 'You are ' + user_browser_user_agent);
   });
 
   // User disconnected
