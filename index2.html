@@ -111,6 +111,11 @@
       });
 
       // Listen to server
+      socket.on('testMessage', function(msg){
+        alert(msg);
+      });
+
+      // Listen to server
       socket.on('giveData', function(jsonObject){
         console.log(jsonObject.name);
       });
