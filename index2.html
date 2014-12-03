@@ -115,8 +115,12 @@
         console.log(jsonObject.name);
       });
       
-      socket.on('giveUserComputerData', function(user_browser_user_agent){
+      /*socket.on('giveUserComputerData', function(user_browser_user_agent){
         $('#messages').append($('<li>').text('You are ' + user_browser_user_agent));
+      });*/
+
+      socket.on('msgs', function(msg){
+        $('#messages').append($('<li>').text(msg));
       });
 
     </script>

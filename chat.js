@@ -21,18 +21,24 @@ io.on('connection', function(socket){
 
   console.log('user connected!');
 
+  if (io.sockets.connected[socket.id]) {
+      io.sockets.connected[socket.id].emit('msg', 'for your eyes only');
+  }
+
   // Send the user the JSON object
   io.emit('giveData', billyJSONObject);
 
   // Get data from CLIENT
   socket.on('giveUserComputerData', function(user_browser_user_agent){
-    console.log('I am: ' + user_browser_user_agent);
+    console.log(user_browser_user_agent + ' is here');
+
+    io.to(socket.id).emit('msgs', 'You are ' + user_browser_user_agent);
 
     //if (io.sockets.connected[socketid]) {
     //io.sockets.connected[socketid].emit('message', 'for your eyes only');
 
     // Send data to CLIENT
-    io.emit('giveUserComputerData', user_browser_user_agent);
+    //io.emit('giveUserComputerData', user_browser_user_agent);
 
   });
 
