@@ -101,17 +101,22 @@
         return false;
       });
 
-      // Give the Server the user's browser Agent, the code/ID is "giveUserComputerData"
+      // Give the Server the user's browser agent
       socket.emit('giveUserComputerData', user_browser_user_agent);
 
       // Listen to server
       socket.on('chat message', function(msg){
         $('#messages').append($('<li>').text(msg));
       });
+
+      // Listen to server
+      socket.on('user disconnected', function(userSessionID, userBrowserAgent){
+        $('#messages').append($('<li>').text('User with ID of ' + userSessionID + ' and browser agent of ' + userBrowserAgent + ' just left.'));
+      });
       
       // Listen to server
       socket.on('giveUserHisBrowserAgent', function(user_browser_user_agent){
-        $('#messages').append($('<li>').text(user_browser_user_agent));
+        $('#messages').append($('<li>').text('You are using ' + user_browser_user_agent));
       });
 
     </script>

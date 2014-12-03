@@ -17,17 +17,21 @@ io.on('connection', function(socket){
 
   // Get data from CLIENT and send back data to ONLY that client
   socket.on('giveUserComputerData', function(user_browser_user_agent) {
-    // Storing all the user's data
+    // Storing the user data to the array, the key is the user's session
     users_connected_user_agents[socket.id] = user_browser_user_agent;
-    console.log(users_connected_user_agents);
+    console.log(users_connected_user_agents);  // DEBUG
 
     console.log('user connected! ' + ' the session ID is: ' + socket.id + ' the user browser is ' + user_browser_user_agent);
-    io.to(socket.id).emit('giveUserHisBrowserAgent', 'You are ' + user_browser_user_agent);
+    io.to(socket.id).emit('giveUserHisBrowserAgent', user_browser_user_agent);
   });
 
   // User disconnected
   socket.on('disconnect', function(){
-    console.log('user disconnected');
+    console.log('user with ID of ' + socket.id + ' is disconnected');
+    // Send data to ALL CLIENT
+    io.emit('user disconnected', socket.id, users_connected_user_agents[socket.id]);
+    delete users_connected_user_agents[socket.id];
+    console.log(users_connected_user_agents); // DEBUG
   });
 
   // Get data from CLIENT
