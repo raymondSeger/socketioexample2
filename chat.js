@@ -2,7 +2,7 @@
 var http  = require('http');
 //this is connection server listen on port
 var server = http.createServer(function(request, response){
-  console.log('Server NodeJS created.');
+  console.log('Server NodeJS for Index.html created.');
 }).listen(9900, function(){
   console.log('listening on *:9900');
 });
@@ -21,7 +21,7 @@ io.on('connection', function(socket){
     users_connected_user_agents[socket.id] = user_browser_user_agent;
     console.log('DEBUG, current array content is: '); // DEBUG
     console.log(users_connected_user_agents); // DEBUG
-    
+
     console.log('user connected! ' + ' the session ID is: ' + socket.id + ' the user browser is ' + user_browser_user_agent);
     io.to(socket.id).emit('giveUserHisBrowserAgent', user_browser_user_agent);
   });
@@ -42,6 +42,5 @@ io.on('connection', function(socket){
     // Send data to ALL CLIENT
     io.emit('chat message', msg);
   });
-
 
 });
