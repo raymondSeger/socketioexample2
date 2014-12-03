@@ -13,11 +13,9 @@ var io = require('socket.io').listen(server);
 // When there is a user that is connected
 io.on('connection', function(socket){
 
-  console.log('user connected!');
-
   // Get data from CLIENT and send back data to ONLY that client
   socket.on('giveUserComputerData', function(user_browser_user_agent){
-    console.log(user_browser_user_agent + ' is here');
+    console.log('user connected! ' + ' the session ID is: ' + socket.id + ' the user browser is ' + user_browser_user_agent);
     io.to(socket.id).emit('giveUserHisBrowserAgent', 'You are ' + user_browser_user_agent);
   });
 
