@@ -28,9 +28,7 @@ io.on('connection', function(socket){
   socket.on('giveUserComputerData', function(user_browser_user_agent){
     console.log('I am: ' + user_browser_user_agent);
 
-    //if (io.sockets.connected[socketid]) {
-    //io.sockets.connected[socketid].emit('message', 'for your eyes only');
-
+    
     // Send data to CLIENT
     io.emit('giveUserComputerData', user_browser_user_agent);
 
