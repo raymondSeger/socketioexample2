@@ -10,11 +10,17 @@ var server = http.createServer(function(request, response){
 // Make the server into Socket IO enabled
 var io = require('socket.io').listen(server);
 
+var users_connected_user_agents = [];
+
 // When there is a user that is connected
 io.on('connection', function(socket){
 
   // Get data from CLIENT and send back data to ONLY that client
-  socket.on('giveUserComputerData', function(user_browser_user_agent){
+  socket.on('giveUserComputerData', function(user_browser_user_agent) {
+    // Storing all the user's data
+    users_connected_user_agents[socket.id] = user_browser_user_agent;
+    console.log(users_connected_user_agents);
+
     console.log('user connected! ' + ' the session ID is: ' + socket.id + ' the user browser is ' + user_browser_user_agent);
     io.to(socket.id).emit('giveUserHisBrowserAgent', 'You are ' + user_browser_user_agent);
   });
