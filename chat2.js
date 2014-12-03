@@ -42,10 +42,19 @@ io.on('connection', function(socket){
 		console.log(users_connected_user_agents);
 	});
 
-	socket.on('private message FROM CLIENT', function (destination, msg) {
-		console.log('UserID ' + socket.id + ' wanted to send message to ' + destination + ' , the content is ' + msg);
+	socket.on('private message FROM CLIENT', function (destination, msg, delays) {
+		console.log('UserID ' + socket.id + ' wanted to send message to ' + destination + ' , the content is ' + msg + ' , delay is ' + delays);
+		
+
 		// SEND data to ONLY one CLIENT
-		io.to(destination).emit('private message FROM SERVER', destination, msg);
+		if(delays == 0 || delays == null) {
+			io.to(destination).emit('private message FROM SERVER', destination, msg, delays);
+		} else {
+			setTimeout(function(){
+				io.to(destination).emit('private message FROM SERVER', destination, msg, delays);
+			}, 3000);
+		}
+
 	});
 
 });
