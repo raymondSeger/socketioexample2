@@ -30,11 +30,11 @@ io.on('connection', function(socket){
 
     //if (io.sockets.connected[socketid]) {
     //io.sockets.connected[socketid].emit('message', 'for your eyes only');
-}
+
     // Send data to CLIENT
     io.emit('giveUserComputerData', user_browser_user_agent);
 
-  })
+  });
 
   // User disconnected
   socket.on('disconnect', function(){
